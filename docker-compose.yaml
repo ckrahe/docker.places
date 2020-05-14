@@ -5,12 +5,18 @@ services:
     build:
       context: ../mongo.places
     networks:
-      - places
+      places:
+        aliases:
+          - placesdb
   node:
     build:
       context: ../express.places
     networks:
-      - places
+      places:
+        aliases:
+          - placesapp
+    depends_on:
+      - mongo
   nginx:
     build:
       context: ../nginx.places
