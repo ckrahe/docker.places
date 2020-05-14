@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+    mongo:
+        build:
+            context: ../mongo.places
+        networks:
+          - places
+    node:
+        build:
+            context: ../express.places
+        networks:
+          - places
+    nginx:
+        build:
+            context: ../nginx.places
+        ports:
+          - "80:80"
+        networks:
+          - places
+        depends_on:
+          - node
+
+networks:
+  places:
+      driver: bridge
